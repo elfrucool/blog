@@ -144,6 +144,11 @@ fmt.Printf("%v x %v = %v\n", odds, evens, multiplication)
 Interesting things come when we start chaining transformations over lists, example, given the following code with several transformations:
 
 ```go
+type T2[A, B any] struct {
+	Fst A
+	Snd B
+} // tuple to hold two values
+
 odds := []int{1, 3, 5, 7, 9}
 evens := []int{0, 2, 4, 6}
 
