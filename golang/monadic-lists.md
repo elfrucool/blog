@@ -221,9 +221,9 @@ for _, o := range operations {
 ```
 
 The expression is very concise although it performs a series of complex operations:
-1. It combines two lists using `makePairs` function to keep both elements on same structore.
+1. It combines two lists using `makePairs` function to keep both elements on same structure.
 2. It performs an addition operation and put the original data on a structure, so, both: operands and result are returned.
-3. It converts each structore of operations and result into a human readable format.
+3. It converts each structure of operations and result into a human readable format.
 
 Given the functor laws, we can make main expression even more compact, consider the following code:
 
