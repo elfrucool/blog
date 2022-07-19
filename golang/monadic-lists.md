@@ -31,7 +31,7 @@ fmt.Printf("%v\n", upperWords)
 And now, let's define a functor over a list, it's just a function:
 
 ```go
-module lists
+package lists
 
 func Map[A, B any](as []A, f func(A) B) []B {
 	bs := make([]B, len(as))
