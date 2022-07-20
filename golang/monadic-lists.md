@@ -281,4 +281,244 @@ Applicatives have their own laws you can read about them here:
 
 ## Monads
 
-WIP
+A monad is just an Applicative (hence it is also a Functor) that can map functions that return instances of the monad and flatten them.
+
+An example may help a bit more, consider the functor function `Map` for lists we already seen:
+
+```go
+func Map[A, B any](as []A, func (A) B) []B { ... }
+```
+
+Now, let's use the following function on it:
+
+```go
+// if n = 0, it will return []
+// if n = 1, it will return [1]
+// if n = 2, it will return [2, 2]
+// if n = 3, it will return [3, 3, 3]
+func Repeat(n int) []int {
+	is := make([]int, n)
+
+	for i := 0; i < n; i++ {
+		is[i] = n
+	}
+	
+	return is
+}
+```
+
+What will be the resulting type when applying it to a list of integers?
+
+```go
+list1 := []int { 1, 2, 3, 4, 5 }
+
+// what is the type of list2?
+list2 := lists.Map(list1, Repeat)
+```
+
+The type of `list2` will be `[][]int`, not `[]int`. We cannot continue adding more transformations unless we do something.
+
+And if we repeat this process few times, we may end with `[][][][][][][][][][][][][][][][][]...[]int` 🤦
+
+**Monad to the Rescue**
+
+A monad defines a method `FlatMap` that takes that function and instead of returning `[][]int` it will "flatten" it to `[]int`
+
+This is the implementation:
+
+```go
+func FlatMap[A, B any](as []A, f func(A) []B) []B {
+	// we don't know in advance the size of the list
+	flattenBs := []B{}
+
+	for i := range as {
+		bs := f(as[i])
+
+		for j := range bs {
+			flattenBs = append(flattenBs, bs[j])
+		}
+	}
+
+	return flattenBs
+}
+```
+
+With it we can do the following:
+
+```go
+l1 := []int{1, 2, 3, 4, 5}
+
+Repeat := func(n int) []int {
+	ns := make([]int, n)
+
+	for i := 0; i < n; i++ {
+		ns[i] = n
+	}
+
+	return ns
+}
+
+l2 := lists.FlatMap(l1, Repeat)
+
+fmt.Printf("l1: %v\nl2: %v\n", l1, l2)
+// output:
+// l1: [1 2 3 4 5]
+// l2: [1 2 2 3 3 3 4 4 4 4 5 5 5 5 5]
+```
+
+Things can be more interesting if we define a function in (e.g.) `lists` package:
+
+
+```go
+package lists
+
+// ...
+
+func Filter[A any](predicate func(A) bool) func(A) []A {
+	return func(a A) []A {
+		if predicate(a) {
+			return []A{a}
+		}
+
+		return []A{}
+	}
+}
+```
+
+Then we can produce a new list with some elements _removed_ based on a predicate, e.g. `func isOdd(n int) bool`, let's do that and watch results:
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"frunix.org/eraseme/lists"
+)
+
+func main() {
+	l1 := []int{1, 2, 3, 4, 5}
+
+	IsOdd := func(n int) bool {
+		return (n % 2) == 1
+	}
+
+	l2 := lists.FlatMap(l1, lists.Filter(IsOdd))
+
+	Repeat := func(n int) []int {
+		ns := make([]int, n)
+
+		for i := 0; i < n; i++ {
+			ns[i] = n
+		}
+
+		return ns
+	}
+
+	l3 := lists.FlatMap(l2, Repeat)
+
+	fmt.Printf("l1: %v\nl2: %v\nl3: %v\n", l1, l2, l3)
+}
+// output:
+// l1: [1 2 3 4 5]
+// l2: [1 3 5]
+// l3: [1 3 3 3 5 5 5 5 5]
+```
+
+## Lists are Foldable (a.k.a. Reduce)
+(note: this section deserves it's own article (WIP))
+
+We already implemented `lists.Map` and `lists.Filter`, for having complete `map-reduce` approach for golang slices, we need another category: `Foldable` (Yes we are applying category theory without Math Phd.)
+
+Foldables are things that can be "folded", usually, that means a sort of container (e.g. a slice) that can be reduced to a single value.
+
+Given types `T` and `A` (`T` stands for _the type_, `A` stands for _accumulator_), and a function `func combine(accumulated A, t T) A`, we say the container `F[T]` is foldable if for type `A` we can provide a `neutral` element for the function `combine` and we can reduce all elements of `F[T]` and produce a single result `A`.
+
+If that sounded complicated, it is not in practice,for lists we can define this function:
+
+```go
+// the "l" in Foldl stands for "left"
+// because we combine values from left to right
+func Foldl[A, T any](ts []T, empty A, combine func(A, T) A) A {
+	accumulated := empty
+
+	for i := range ts {
+		accumulated = combine(accumulated, ts[i])
+	}
+
+	return accumulated
+}
+```
+
+We can apply it to our example this way to complete the map-filter-reduce cycle.
+
+Lets define a type to capture basic statistics of a list of numbers:
+
+```go
+type Stats struct {
+	NumberOfElements int
+	Sum              int
+	Product          int
+	Average          float64
+	Min              int
+	Max              int
+}
+```
+
+Let's create a "zero" instance of this structure, so multiplication can work:
+
+```go
+StatsZero := func() Stats {
+	return Stats{
+		// the rest of fields will work
+		// unchanged
+		Product: 1,
+	}
+}
+```
+
+Now let's define a function that takes a previous `Stats` structure and a new `int` and produces an updated version of `Stats` (it's a bit large but it's just the calculation of the above fields):
+
+```go
+UpdateStats := func(prev Stats, new int) Stats {
+	newNumberOfElements := prev.NumberOfElements + 1
+	newSum := prev.Sum + new
+
+	newMin := prev.Min
+	if newMin > new {
+		newMin = new
+	}
+
+	newMax := prev.Max
+	if newMax < new {
+		newMax = new
+	}
+
+	return Stats{
+		NumberOfElements: prev.NumberOfElements + 1,
+		Sum:              prev.Sum + new,
+		Product:          prev.Product * new,
+		Average:          float64(newSum) / float64(newNumberOfElements),
+		Min:              newMin,
+		Max:              newMax,
+	}
+}
+```
+
+And finally we can incorporate it to calculate the stats of the list we already obtained:
+
+```go
+stats := lists.Foldl(l3, StatsZero(), UpdateStats)
+
+fmt.Printf("l1: %v\nl2: %v\nl3: %v\nstats: %#v\n", l1, l2, l3, stats)
+
+//output
+// l1: [1 2 3 4 5]
+// l2: [1 3 5]
+// l3: [1 3 3 3 5 5 5 5 5]
+// stats: main.Stats{NumberOfElements:9, Sum:35, Product:84375, Average:3.888888888888889, Min:0, Max:5}
+```
+
+There are many other things we can talk about lists (aka slices/arrays) under functional perspective, but I hope with this I gave you a different perspective on the code we have daily.
+
+Next time I'll try to aplay most of these concepts to golang channels + goroutines and we can see they apply; so next time we can operate on complex asynchronous operations as if they were just slices with `Map`, `Map2`, `FlatMap`, `Filter`, and `Foldl` (and a couple of new things: `Traversable` and `distribute`)
