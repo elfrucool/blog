@@ -328,18 +328,13 @@ This is the implementation:
 
 ```go
 func FlatMap[A, B any](as []A, f func(A) []B) []B {
-	// we don't know in advance the size of the list
-	flattenBs := []B{}
+	bs := []B{} // we don't know in advance the size of the list
 
 	for i := range as {
-		bs := f(as[i])
-
-		for j := range bs {
-			flattenBs = append(flattenBs, bs[j])
-		}
+		bs = append(bs, f(as[i])...)
 	}
 
-	return flattenBs
+	return bs
 }
 ```
 
