@@ -517,3 +517,83 @@ fmt.Printf("l1: %v\nl2: %v\nl3: %v\nstats: %#v\n", l1, l2, l3, stats)
 There are many other things we can talk about lists (aka slices/arrays) under functional perspective, but I hope with this I gave you a different perspective on the code we have daily.
 
 Next time I'll try to aplay most of these concepts to golang channels + goroutines and we can see they apply; so next time we can operate on complex asynchronous operations as if they were just slices with `Map`, `Map2`, `FlatMap`, `Filter`, and `Foldl` (and a couple of new things: `Traversable` and `distribute`)
+
+
+This is the final version of the above program in case you want to copy it and make it run:
+
+```go
+package main
+
+import (
+	"fmt"
+
+	"frunix.org/eraseme/lists"
+)
+
+func main() {
+	l1 := []int{1, 2, 3, 4, 5}
+
+	IsOdd := func(n int) bool {
+		return (n % 2) == 1
+	}
+
+	l2 := lists.FlatMap(l1, lists.Filter(IsOdd))
+
+	Repeat := func(n int) []int {
+		ns := make([]int, n)
+
+		for i := 0; i < n; i++ {
+			ns[i] = n
+		}
+
+		return ns
+	}
+
+	l3 := lists.FlatMap(l2, Repeat)
+
+	type Stats struct {
+		NumberOfElements int
+		Sum              int
+		Product          int
+		Average          float64
+		Min              int
+		Max              int
+	}
+
+	StatsZero := func() Stats {
+		return Stats{
+			// the rest of fields will work
+			// unchanged
+			Product: 1,
+		}
+	}
+
+	UpdateStats := func(prev Stats, new int) Stats {
+		newNumberOfElements := prev.NumberOfElements + 1
+		newSum := prev.Sum + new
+
+		newMin := prev.Min
+		if newMin > new {
+			newMin = new
+		}
+
+		newMax := prev.Max
+		if newMax < new {
+			newMax = new
+		}
+
+		return Stats{
+			NumberOfElements: prev.NumberOfElements + 1,
+			Sum:              prev.Sum + new,
+			Product:          prev.Product * new,
+			Average:          float64(newSum) / float64(newNumberOfElements),
+			Min:              newMin,
+			Max:              newMax,
+		}
+	}
+
+	stats := lists.Foldl(l3, StatsZero(), UpdateStats)
+
+	fmt.Printf("l1: %v\nl2: %v\nl3: %v\nstats: %#v\n", l1, l2, l3, stats)
+}
+```
