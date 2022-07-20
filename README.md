@@ -10,8 +10,8 @@ This is just a collection of articles related to coding.
 
 - [monadic lists](golang/monadic-lists.md) List is the context that is easier to be used to explain the concept of a monad, so let's use it.
 
-- [monadic optional/nil](golang/monadic-maybe.md) It's very common to use a pointer to represent a value that may not exist. In this article I suggest another approach to handle presense/absence of a value.
+- **monadic optional/nil**(coming soon) It's very common to use a pointer to represent a value that may not exist. In this article I suggest another approach to handle presense/absence of a value.
 
-- [monadic fallibility](golang/monadic-fallibility.md) The way go handles errors is returning a value of `error` type. It's a common pattern to return `(something, error)` tuple. Unfortunately, tuples are not first-class citizen in go. You can't wrap them on a type. But we can work around this limitation and build a monadic abstraction on top of this pattern.
+- **monadic fallibility**(coming soon) The way go handles errors is returning a value of `error` type. It's a common pattern to return `(something, error)` tuple. Unfortunately, tuples are not first-class citizen in go. You can't wrap them on a type. But we can work around this limitation and build a monadic abstraction on top of this pattern.
 
-- [monadic channels](golang/monadic-channels.md)  In this example I'm working with channels + goroutines as asynchronous context. And abstracting them I can offer another way ot thinking in concurrency. I will work with the WebCrawler exercise of [a tour of go](https://go.dev/tour/concurrency/10)
+- **monadic channels**(coming soon)  In this example I'm working with channels + goroutines as asynchronous context. And abstracting them I can offer another way ot thinking in concurrency. I will work with the WebCrawler exercise of [a tour of go](https://go.dev/tour/concurrency/10)
