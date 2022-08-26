@@ -15,3 +15,5 @@ This is just a collection of articles related to coding.
 - **monadic fallibility**(coming soon) The way go handles errors is returning a value of `error` type. It's a common pattern to return `(something, error)` tuple. Unfortunately, tuples are not first-class citizen in go. You can't wrap them on a type. But we can work around this limitation and build a monadic abstraction on top of this pattern.
 
 - **monadic channels**(coming soon)  In this example I'm working with channels + goroutines as asynchronous context. And abstracting them I can offer another way ot thinking in concurrency. I will work with the WebCrawler exercise of [a tour of go](https://go.dev/tour/concurrency/10)
+
+- **state monad in go*** This is a sequence of three articles that explain (1) [how to implement the state monad in go](golang/state-monad.md), (2) an arbitrary **pseudo-random values generator**(coming soon), and (3) **property-based testing**(coming soon) using the pseudo-random values generator we implemented.
