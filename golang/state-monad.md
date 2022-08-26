@@ -196,3 +196,56 @@ fmt.Printf("Greet: %s, Length: %d\n", gNl.Greet, gNl.Length)
 This way we can combine two independent stateful computatios and combine them to get a single result.
 
 ## MONADIC STATE
+
+Let's convert `State[S, A]` to a monad:
+
+```go
+// state/state.go
+
+func FlatMap[S, A, B any](sa State[S, A], func(A) State[S, B]) State[S, B] {
+    return func(s0 S) (S, B) {
+        s1, a := sa(s0)
+        return f(a)(s1)
+    }
+}
+```
+
+It still seems to be abstract and not very useful, lets advance a bit defining a couple of functions
+
+
+One interesting thing we can do is to get the state from a previous computation and make it visible to our chain of calls of `Map/Map2/FlatMap`:
+
+```go
+// state/state.go
+
+func Get[S any]() State[S, S] {
+	return func(s S) (S, S) {
+		return s, s
+	}
+}
+```
+
+The other function does the opposite, it puts a value into the state:
+
+```go
+func Put[S any](s S) State[S, S] {
+	return func(S) (S, S) {
+		return s, s
+	}
+}
+```
+
+And another function to transform the state, note it will transform the value, not the type:
+
+```go
+func Modify[S any](f func(S) S) State[S, S] {
+	return func(s0 S) (S, S) {
+		s1 := f(s0)
+		return s1, s1
+	}
+}
+```
+
+What can we do with them?
+
+Coming soon...
