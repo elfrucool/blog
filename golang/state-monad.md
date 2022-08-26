@@ -9,14 +9,14 @@ I strongly recommend you to read the following article if you still have not don
 
 One of the most interesting monads is State[^1][^2] monad, it encapsulates stateful computations in a functional way. I.e. using functions without side effects.
 
-Here we are going to implement it in golang, the concept is relatively simple but powerful.
-
-On a second article, we are going to apply it to implement pseudo-random generators, not just numeric random generators, but to generate any kind of random data: numbers, chars, strings, lists, custom records, etc. And to do some transformations on them.
-
 [^1]: https://blog.ploeh.dk/2022/06/20/the-state-monad/
 [^2]: https://www.infoq.com/articles/Understanding-Monads-guide-for-perplexed/
 
-On a third article, we will use our functional pseudo-random generator to a special kind of tests named [property-based testing](https://medium.com/criteo-engineering/introduction-to-property-based-testing-f5236229d237). This approach of testing is very powerful, and the implementation is not hard.
+Here **in this article**, we are going to implement it in golang, the concept is relatively simple but powerful.
+
+On a **second article**(coming soon), we are going to apply it to implement pseudo-random generators, not just numeric random generators, but to generate any kind of random data: numbers, chars, strings, lists, custom records, etc. And to do some transformations on them.
+
+On a **third article**(coming soon), we will use our functional pseudo-random generator to a special kind of tests named [property-based testing](https://medium.com/criteo-engineering/introduction-to-property-based-testing-f5236229d237). This approach of testing is very powerful, and the implementation is not hard.
 
 ---
 
