@@ -165,8 +165,8 @@ var r4 rng.RNG[string] = rng.FlatMap(
         y := rng.Map(x, func (u2 uint64) string) {
             return fmt.Sprintf("<%d>", u2) // second seed as string
         }
-        return rng.Map2(u, y, func (u3 uint64, s string) string {
-            return fmt.Sprintf("[%d] -> [%s]", u3, s) // combining both seeds
+        return rng.Map(y, func (s string) string {
+            return fmt.Sprintf("[%d] -> [%s]", u, s) // combining both seeds
         })
     },
 )
