@@ -53,6 +53,7 @@ Next function will run a RNG returning its value:
 // rng/rng.go
 
 func Run[A any](r RNG[A], seed uint64) A {
+	return state.RunState(_s(r), seed)
 }
 ```
 
