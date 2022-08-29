@@ -14,7 +14,7 @@ One of the most interesting monads is State[^1][^2] monad, it encapsulates state
 
 Here **in this article**, we are going to implement it in golang, the concept is relatively simple but powerful.
 
-On a **second article**(coming soon), we are going to apply it to implement pseudo-random generators, not just numeric random generators, but to generate any kind of random data: numbers, chars, strings, lists, custom records, etc. And to do some transformations on them.
+On a **[second article](./random-generator.md)**, we are going to apply it to implement pseudo-random generators, not just numeric random generators, but to generate any kind of random data: numbers, chars, strings, lists, custom records, etc. And to do some transformations on them.
 
 On a **third article**(coming soon), we will use our functional pseudo-random generator to a special kind of tests named [property-based testing](https://medium.com/criteo-engineering/introduction-to-property-based-testing-f5236229d237). This approach of testing is very powerful, and the implementation is not hard.
 
@@ -248,4 +248,6 @@ func Modify[S any](f func(S) S) State[S, S] {
 
 What can we do with them?
 
-Coming soon...
+- **coming soon** a small example to complete this article
+
+Also, see a good application here: [Random Generator in GO using State Monad](./random-generator.md)
