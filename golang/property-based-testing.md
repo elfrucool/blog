@@ -458,7 +458,7 @@ func TestAdd(t *testing.T) {
 
 - For `addNegativeNumbers` it was: `-6207623438501387300 + -4864114072245600727 should be smaller or equal than 0, but it was 7375006562962563589`
 
-It turns out that in math, above properties are true, but in computesr, int numbers have limited size, and if `a + b > biggest number`, then it results in some negative number, see how above messages are true in [playground](https://play.golang.com/p/cxgdbzRypXo)
+It turns out that in math, above properties are true, but in computers, int numbers have limited size, and if `a + b > biggest number`, then it results in some negative number, see how above messages are true in [playground](https://play.golang.com/p/cxgdbzRypXo)
 
 What could we made is to restrict the size of the numbers such that `a + b <= biggest integer` and then properties will remain true. I'll left the exercise for the reader. ;)
 
