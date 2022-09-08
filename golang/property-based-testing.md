@@ -75,15 +75,6 @@ Let's rewrite our properties:
 
 Now, ideally we should have two functions, each one of them to evaluate each property we already defined, let's write them without worrying how to put them on a test (yet).[^5]
 
-**Note:** Let's add this library to our project to make tests easier:
-
-> ```go
-> // go.mod
-> require github.com/stretchr/testify v1.2.2
-> ```
-
-Now the tests functions
-
 ```go
 // pbt/pbt_test.go
 
