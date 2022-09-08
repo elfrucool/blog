@@ -222,7 +222,7 @@ func isOdd(n int) bool {
 
 One of the strengths of PBT is that it can uncover issues that were not considered when implementing the tests.
 
-Now let's try to fix our function, e.g. why if we test that `n%2` is not zero?
+Now let's try to fix our function, e.g. what if we test that `n%2` is not zero?
 
 ```go
 // pbt/pbt_test.go
