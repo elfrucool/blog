@@ -472,7 +472,7 @@ It challenges us to think on the invariants of our system, and its boundaries.
 
 E.g. what if for an email we give non alphanumeric characers? what if for a name we give a string 10k characters length? ...
 
-We have seen a concrete application of random-values generator, which is also an application of the state monad.
+We have seen a concrete application of [random-values generator](./random-generator.md), which is also an application of the [state monad](./state-monad.md).
 
 I hope this is helpful at least on thinking how we build programs.
 
