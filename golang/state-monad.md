@@ -16,7 +16,7 @@ Here **in this article**, we are going to implement it in golang, the concept is
 
 On a **[second article](./random-generator.md)**, we are going to apply it to implement pseudo-random generators, not just numeric random generators, but to generate any kind of random data: numbers, chars, strings, lists, custom records, etc. And to do some transformations on them.
 
-On a **third article**(coming soon), we will use our functional pseudo-random generator to a special kind of tests named [property-based testing](https://medium.com/criteo-engineering/introduction-to-property-based-testing-f5236229d237). This approach of testing is very powerful, and the implementation is not hard.
+On a **[third article](./property-based-testing.md)**, we will use our functional pseudo-random generator to a special kind of tests named [property-based testing](https://medium.com/criteo-engineering/introduction-to-property-based-testing-f5236229d237). This approach of testing is very powerful, and the implementation is not hard.
 
 ---
 
@@ -251,3 +251,7 @@ What can we do with them?
 - **coming soon** a small example to complete this article
 
 Also, see a good application here: [Random Generator in GO using State Monad](./random-generator.md)
+
+See third article: [Property Based Testing using Random Generator (State Monad)](./property-based-testing.md)
+
+See [other articles](../README.md)

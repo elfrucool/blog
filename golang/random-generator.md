@@ -1,6 +1,6 @@
 # Random Generator in GO using State Monad
 
-See previous article [State Monad in Golang](./state-monad.md).
+See previous article [State Monad in Golang](./state-monad.md) and next article [Property Based Testing](./property-based-testing.md).
 
 In this article we are going to build a pseudo-random values generator using the state monad, it will not just generate pseudo-random nubers, but any kind of data (strings, numbers, lists, etc); this library will contain several functions to combine all these values.
 
@@ -317,11 +317,18 @@ func NextString(minL, maxL uint, runeGen RNG[rune]) RNG[string] {
 }
 ```
 
-## APPLICATION
+## APPLICATIONS
 
 We have a complete pseudo-random value generator library with the most important types, to generate more complex types, we can use `Map/Map2/FlatMap` to map these values into structs/etc.
 
-Now I'm going to show the power of above library in action into a small program that generates random directories, some of them will contain files and some do not, this could be useful for performance testing over a complex scenario.
+Now I'm going to show the power of above library in actio in two ways:
+
+1. a small program that generates random directories
+2. property-based testing proof of concept ([separated article](./property-based-testing.md))
+
+### RANDOM DIRECTORIES
+
+This small program generates random directories, some of them will contain files and some do not, this could be useful for performance testing over a complex scenario.
 
 ```go
 // main.go
@@ -463,3 +470,5 @@ func main() {
 
 ## See:
 - Previous article: [State Monad in Golang](./state-monad.md)
+- Next article: [Property Based Testing](./property-based-testing.md)
+- [Other articles](../README.md)
