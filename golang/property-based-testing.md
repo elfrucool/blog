@@ -292,9 +292,9 @@ What properties can we define for `plus` function?
 
 We can start with something took from any math book:
 
-1. For any number `n`, this is always true: `n + 0 = n` (zero is neutral element for addition) -- will use `_t()` function.
-2. For any pair of numbers `m`, `n`, this is always true: `m + n = n + m` (commutativity) -- will use `_t2()` function.
-3. For any three numbers `a`, `b`, `c`, this is always true: `a + (b + c) = (a + b) + c` (associativity) -- will use `_t3()` function.
+1. For any number `n`, it is always true that `n + 0 = n` (zero is neutral element for addition) -- will use `_t()` function.
+2. For any pair of numbers `m`, `n`, it is always true that `m + n = n + m` (commutativity) -- will use `_t2()` function.
+3. For any three numbers `a`, `b`, `c`, it is always true that `a + (b + c) = (a + b) + c` (associativity) -- will use `_t3()` function.
 
 Let's implement these three properties for addition:
 
