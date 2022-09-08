@@ -240,7 +240,7 @@ It's working now!
 
 ## TESTS WITH MORE THAN ONE INPUT
 
-With our `_t1()` function we have all that we need, if we want to evaluate more data, we just have to define a complext `struct` with all the data that we need, and produce random values for it.
+With our `_t1()` function we have all that we need, if we want to evaluate more data, we just have to define a complex `struct` with all the data that we need, and produce random values for it.
 
 But for the sake of ergonomics, let's try defining a `_t2()` function that accepts two `rng`'s and executes 100 tests using them, and similar function `_t3()` for three input parameters.
 
