@@ -182,7 +182,7 @@ func isOdd(n int) bool {
 
 `isOdd_returnsFalseForEvenNumbers` has good error messages too: `-5525521985809462772 should return false`
 
-Now, we can implement the function, but, can we cheat it? e.g. giving some known numbers such as:
+Now, we can implement the function, but, can we cheat it? e.g. giving some known numbers such as: [^5]
 
 ```go
 // pbt/pbt_test.go
