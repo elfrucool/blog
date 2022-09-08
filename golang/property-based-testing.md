@@ -354,6 +354,8 @@ func TestAdd(t *testing.T) {
 // ...
 ```
 
+Everything is working.
+
 ## DISCOVERING NEW THINGS ABOUT OUR PROGRAM
 
 Let's say, we are not satisifed with our solution, that we suspect something can go wrong, let's add two more properties to our test:
