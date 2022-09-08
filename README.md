@@ -16,4 +16,4 @@ This is just a collection of articles related to coding.
 
 - **monadic channels**(coming soon)  In this example I'm working with channels + goroutines as asynchronous context. And abstracting them I can offer another way ot thinking in concurrency. I will work with the WebCrawler exercise of [a tour of go](https://go.dev/tour/concurrency/10)
 
-- **state monad in go*** This is a sequence of three articles that explain (1) [how to implement the state monad in go](./golang/state-monad.md), (2) an arbitrary [pseudo-random values generator](./golang/random-generator.md), and (3) [property-based testing](./golang/state-monad.md) using the pseudo-random values generator we implemented.
+- **state monad in go** This is a sequence of three articles that explain (1) [how to implement the state monad in go](./golang/state-monad.md), (2) an arbitrary [pseudo-random values generator](./golang/random-generator.md), and (3) [property-based testing](./golang/state-monad.md) using the pseudo-random values generator we implemented.
